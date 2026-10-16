@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Siz uchun Maxsus E'tirof ✨</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Great+Vibes&family=Montserrat:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #040208;
+            color: #ffffff;
+            overflow-x: hidden;
+            user-select: none;
+            transition: background-color 0.8s ease;
+        }
+
+        .font-cinzel { font-family: 'Cinzel', serif; }
+        .font-cursive { font-family: 'Great Vibes', cursive; }
+
+        .glass-luxury {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid var(--theme-border, rgba(251, 191, 36, 0.3));
+            box-shadow: 0 15px 50px 0 var(--theme-shadow, rgba(217, 119, 6, 0.25));
+            transition: all 0.6s ease;
+        }
+
+        .glass-modal {
+            background: rgba(10, 5, 20, 0.88);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border: 1px solid var(--theme-border, rgba(245, 158, 11, 0.35));
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.85), 0 0 50px var(--theme-shadow, rgba(236, 72, 153, 0.25));
+        }
+
+        .glow-text-dynamic {
+            color: var(--theme-text-light, #fef08a);
+            text-shadow:
+                0 0 12px var(--theme-glow-1, rgba(245, 158, 11, 0.9)),
+                0 0 25px var(--theme-glow-2, rgba(217, 119, 6, 0.7)),
+                0 0 50px var(--theme-glow-3, rgba(180, 83, 9, 0.5)),
+                2px 2px 4px rgba(0, 0, 0, 0.9);
+            transition: all 0.6s ease;
+        }
+
+        @keyframes luxuryFloat {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(1deg); }
+        }
+
+        .animate-luxury-float {
+            animation: luxuryFloat 6s ease-in-out infinite;
+        }
+
+        @keyframes dynamicGlow {
+            0%, 100% { border-color: var(--theme-border-glow-1, rgba(245, 158, 11, 0.4)); }
+            50% { border-color: var(--theme-border-glow-2, rgba(236, 72, 153, 0.7)); }
+        }
+
+        .animate-dynamic-glow {
+            animation: dynamicGlow 4s infinite ease-in-out;
+        }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #040208; }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(to bottom, #d97706, #ec4899);
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="min-h-screen relative overflow-x-hidden flex flex-col justify-between items-center selection:bg-amber-500 selection:text-black">
+
+    <canvas id="bgCanvas" class="fixed top-0 left-0 w-full h-full pointer-events-none z-0"></canvas>
+
+    <button id="musicToggle" aria-label="Audio toggle" class="fixed top-5 right-5 z-40 w-12 h-12 rounded-full glass-luxury flex items-center justify-center text-amber-300 hover:text-white hover:scale-110 transition-all duration-300 shadow-xl cursor-pointer">
+        <i id="musicIcon" class="fas fa-music text-lg"></i>
+    </button>
+
+    <!-- STEP 1: ELEGANT NAME ENTRY MODAL -->
+    <div id="modalNameEntry" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-xl transition-all duration-700">
+        <div class="glass-modal rounded-3xl p-8 sm:p-12 w-full max-w-lg text-center relative border animate-dynamic-glow">
+
+            <div id="entryIcon" class="w-20 h-20 rounded-full bg-gradient-to-tr from-amber-500/20 to-pink-500/20 text-amber-300 flex items-center justify-center text-4xl mx-auto mb-6 border border-amber-500/40 shadow-inner">
+                ✨
+            </div>
+
+            <span class="text-xs font-semibold tracking-widest text-amber-400 uppercase">E'tirof va Ruhiyat Sahifasi</span>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-white mt-2 mb-3 font-cinzel tracking-wide">
+                Maxsus E'tirofnomani Ochish
+            </h2>
+            <p class="text-gray-300 text-sm sm:text-base mb-8 font-light leading-relaxed">
+                Har bir ism o'ziga xos nur, aura va tengsiz nafosatga ega. O'zingizning yoki qadrdoningizning ismini kiriting:
+            </p>
+
+            <form id="formName" onsubmit="handleNameSubmit(event)" class="space-y-5">
+                <div class="relative">
+                    <input type="text" id="inputName" required autocomplete="off" placeholder="Ismni kiriting (masalan: Malika, Robiya)..." class="w-full px-6 py-4 rounded-2xl bg-white/5 border border-amber-500/30 text-white placeholder-gray-400 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/20 text-center text-xl font-medium transition-all duration-300 shadow-inner">
+                </div>
+                <button type="submit" class="w-full py-4 rounded-2xl bg-gradient-to-r from-amber-500 via-rose-500 to-pink-600 hover:from-amber-600 hover:to-pink-700 text-white font-bold text-lg shadow-lg shadow-amber-500/25 hover:shadow-pink-500/40 transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer">
+                    Kashf Etish ✨
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- STEP 2: MAIN DYNAMIC DISPLAY (Initially Hidden) -->
+    <main id="mainScreen" class="relative z-10 w-full max-w-5xl mx-auto flex flex-col items-center justify-center p-4 py-10 hidden opacity-0 transition-opacity duration-1000">
+
+        <div class="w-full glass-luxury rounded-3xl p-6 sm:p-12 text-center relative overflow-hidden animate-dynamic-glow my-auto">
+
+            <div id="orbLeft" class="absolute -top-20 -left-20 w-64 h-64 bg-amber-500/15 rounded-full blur-3xl pointer-events-none"></div>
+            <div id="orbRight" class="absolute -bottom-20 -right-20 w-64 h-64 bg-pink-600/15 rounded-full blur-3xl pointer-events-none"></div>
+
+            <div class="relative z-10 flex flex-col items-center">
+                <div id="badgeTag" class="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs sm:text-sm font-semibold tracking-widest uppercase mb-6 shadow-sm">
+                    <i class="fas fa-crown text-amber-400 text-xs"></i>
+                    <span id="displayEpithet">Nafosat va Zakovat Timsoli</span>
+                </div>
+
+                <h1 id="displayName" class="font-cinzel text-4xl sm:text-7xl md:text-8xl font-black glow-text-dynamic my-2 leading-tight tracking-wider py-2 uppercase transition-all duration-500">
+                    SOHIBA
+                </h1>
+
+                <p id="displaySubtitle" class="text-base sm:text-2xl text-pink-100 font-light italic mt-4 max-w-3xl leading-relaxed">
+                    "Siz shunchaki inson emassiz — siz atrofingizga nur, xotirjamlik va yuksak nafosat ulashuvchi noyob bir mo'jizasiz."
+                </p>
+
+                <div class="mt-6 inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs text-gray-300 font-medium">
+                    <span>Aura Rangi:</span>
+                    <span id="auraName" class="font-bold text-amber-300">Oltin Nuri</span>
+                    <div id="auraDot" class="w-3 h-3 rounded-full bg-amber-400 shadow-sm shadow-amber-400"></div>
+                </div>
+
+                <div class="w-36 h-0.5 bg-gradient-to-r from-transparent via-amber-400 to-transparent my-8 opacity-80"></div>
+
+                <div id="traitsGrid" class="grid grid-cols-1 md:grid-cols-3 gap-6 w-full mt-2">
+                </div>
+
+                <div class="mt-10 flex flex-wrap justify-center gap-4">
+                    <button id="btnOpenPoem" class="py-3.5 px-8 rounded-2xl bg-gradient-to-r from-amber-500 to-amber-700 hover:from-amber-600 hover:to-amber-800 text-white font-semibold text-sm shadow-lg shadow-amber-500/20 transition-all duration-300 flex items-center gap-2 transform hover:-translate-y-0.5 cursor-pointer">
+                        <i class="fas fa-feather-alt"></i>
+                        <span>Maxsus E'tiroflarni O'qish 📜</span>
+                    </button>
+                    <button id="btnReenterName" class="py-3.5 px-6 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/20 text-white font-medium text-sm backdrop-blur-md transition-all duration-300 flex items-center gap-2 cursor-pointer">
+                        <i class="fas fa-user-edit"></i>
+                        <span>Boshqa Ism Sinab Ko'rish</span>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+        <p class="text-xs text-amber-300/60 mt-8 text-center font-light tracking-widest uppercase">
+            Ekran bo'ylab bosing — sehrli zarrachalar va nur portlashini hosil qiling ✨
+        </p>
+    </main>
+
+    <!-- POETIC COMPLIMENTS MODAL -->
+    <div id="modalPoem" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-xl hidden opacity-0 transition-all duration-500">
+        <div class="glass-modal rounded-3xl p-6 sm:p-10 w-full max-w-xl text-center relative border border-amber-500/40">
+            <button id="btnClosePoem" aria-label="Close modal" class="absolute top-5 right-5 text-gray-400 hover:text-white text-xl transition-colors cursor-pointer">
+                <i class="fas fa-times"></i>
+            </button>
+
+            <span class="text-xs uppercase tracking-widest text-amber-400 font-semibold">Samimiy E'tiroflar</span>
+
+            <div class="min-h-[160px] flex items-center justify-center px-2 sm:px-6 my-6">
+                <p id="poemText" class="text-lg sm:text-2xl text-amber-100 font-cursive leading-relaxed transition-opacity duration-300">
+                    "Sizdagi beg'uborlik va yuksak odob — bu zamonda kamdan-kam uchraydigan haqiqiy boylikdir."
+                </p>
+            </div>
+
+            <div class="flex items-center justify-between pt-4 border-t border-white/10">
+                <button id="btnPrevPoem" aria-label="Previous compliment" class="p-3 rounded-full bg-white/5 hover:bg-white/10 border border-amber-500/30 text-amber-300 transition-all cursor-pointer">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <span id="poemCounter" class="text-xs text-amber-400 font-mono tracking-widest">1 / 4</span>
+                <button id="btnNextPoem" aria-label="Next compliment" class="p-3 rounded-full bg-white/5 hover:bg-white/10 border border-amber-500/30 text-amber-300 transition-all cursor-pointer">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        class AmbientAudioPlayer {
+            constructor() {
+                this.ctx = null;
+                this.isPlaying = false;
+                this.timer = null;
+                this.currentScale = [329.63, 392.00, 493.88, 587.33, 659.25, 783.99];
+            }
+
+            init() {
+                if (!this.ctx) {
+                    const AudioContext = window.AudioContext || window.webkitAudioContext;
+                    this.ctx = new AudioContext();
+                }
+            }
+
+            setToneScale(notes) {
+                if (notes && notes.length > 0) {
+                    this.currentScale = notes;
+                }
+            }
+
+            playChimes() {
+                this.init();
+                if (this.isPlaying) return;
+                this.isPlaying = true;
+
+                const playNote = () => {
+                    if (!this.isPlaying) return;
+
+                    const osc = this.ctx.createOscillator();
+                    const gain = this.ctx.createGain();
+
+                    const freq = this.currentScale[Math.floor(Math.random() * this.currentScale.length)];
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
+
+                    gain.gain.setValueAtTime(0, this.ctx.currentTime);
+                    gain.gain.linearRampToValueAtTime(0.035, this.ctx.currentTime + 0.3);
+                    gain.gain.exponentialRampToValueAtTime(0.00001, this.ctx.currentTime + 3.8);
+
+                    osc.connect(gain);
+                    gain.connect(this.ctx.destination);
+
+                    osc.start();
+                    osc.stop(this.ctx.currentTime + 3.9);
+
+                    const nextDelay = [700, 1100, 1500, 2000][Math.floor(Math.random() * 4)];
+                    this.timer = setTimeout(playNote, nextDelay);
+                };
+
+                playNote();
+            }
+
+            playSparkleSound() {
+                this.init();
+                const now = this.ctx.currentTime;
+                for (let i = 0; i < 3; i++) {
+                    const osc = this.ctx.createOscillator();
+                    const gain = this.ctx.createGain();
+                    osc.frequency.setValueAtTime(800 + i * 350 + Math.random() * 200, now + i * 0.08);
+                    gain.gain.setValueAtTime(0.03, now + i * 0.08);
+                    gain.gain.exponentialRampToValueAtTime(0.0001, now + i * 0.08 + 0.4);
+                    osc.connect(gain);
+                    gain.connect(this.ctx.destination);
+                    osc.start(now + i * 0.08);
+                    osc.stop(now + i * 0.08 + 0.45);
+                }
+            }
+
+            stop() {
+                this.isPlaying = false;
+                if (this.timer) clearTimeout(this.timer);
+            }
+        }
+
+        const audioPlayer = new AmbientAudioPlayer();
+        let isMusicOn = false;
+
+        document.getElementById('musicToggle').addEventListener('click', () => {
+            const icon = document.getElementById('musicIcon');
+            if (!isMusicOn) {
+                audioPlayer.playChimes();
+                isMusicOn = true;
+                icon.className = "fas fa-volume-up text-lg text-amber-400 animate-pulse";
+            } else {
+                audioPlayer.stop();
+                isMusicOn = false;
+                icon.className = "fas fa-music text-lg";
+            }
+        });
+
+        const AURA_THEMES = [
+            {
+                id: 'gold',
+                name: 'Oltin Ziyo Aurası',
+                dotColor: '#fbbf24',
+                colors: ['rgba(245, 158, 11, ', 'rgba(251, 191, 36, ', 'rgba(217, 119, 6, ', 'rgba(254, 240, 138, '],
+                audioNotes: [329.63, 392.00, 493.88, 587.33, 659.25],
+                cssVars: {
+                    '--theme-border': 'rgba(251, 191, 36, 0.35)',
+                    '--theme-shadow': 'rgba(217, 119, 6, 0.3)',
+                    '--theme-text-light': '#fef08a',
+                    '--theme-glow-1': 'rgba(245, 158, 11, 0.9)',
+                    '--theme-glow-2': 'rgba(217, 119, 6, 0.7)',
+                    '--theme-glow-3': 'rgba(180, 83, 9, 0.5)'
+                }
+            },
+            {
+                id: 'emerald',
+                name: 'Zumrad Nafosat Aurası',
+                dotColor: '#34d399',
+                colors: ['rgba(16, 185, 129, ', 'rgba(52, 211, 153, ', 'rgba(5, 150, 105, ', 'rgba(167, 243, 208, '],
+                audioNotes: [261.63, 329.63, 392.00, 523.25, 659.25],
+                cssVars: {
+                    '--theme-border': 'rgba(52, 211, 153, 0.35)',
+                    '--theme-shadow': 'rgba(5, 150, 105, 0.3)',
+                    '--theme-text-light': '#a7f3d0',
+                    '--theme-glow-1': 'rgba(16, 185, 129, 0.9)',
+                    '--theme-glow-2': 'rgba(5, 150, 105, 0.7)',
+                    '--theme-glow-3': 'rgba(4, 120, 87, 0.5)'
+                }
+            },
+            {
+                id: 'sapphire',
+                name: 'Safir Asillik Aurası',
+                dotColor: '#38bdf8',
+                colors: ['rgba(14, 165, 233, ', 'rgba(56, 189, 248, ', 'rgba(2, 132, 199, ', 'rgba(186, 230, 253, '],
+                audioNotes: [293.66, 349.23, 440.00, 587.33, 698.46],
+                cssVars: {
+                    '--theme-border': 'rgba(56, 189, 248, 0.35)',
+                    '--theme-shadow': 'rgba(2, 132, 199, 0.3)',
+                    '--theme-text-light': '#bae6fd',
+                    '--theme-glow-1': 'rgba(14, 165, 233, 0.9)',
+                    '--theme-glow-2': 'rgba(2, 132, 199, 0.7)',
+                    '--theme-glow-3': 'rgba(3, 105, 161, 0.5)'
+                }
+            },
+            {
+                id: 'amethyst',
+                name: 'Suhbat va Sirlilik Aurası',
+                dotColor: '#c084fc',
+                colors: ['rgba(168, 85, 247, ', 'rgba(192, 132, 252, ', 'rgba(126, 34, 206, ', 'rgba(233, 213, 255, '],
+                audioNotes: [311.13, 392.00, 466.16, 622.25, 783.99],
+                cssVars: {
+                    '--theme-border': 'rgba(192, 132, 252, 0.35)',
+                    '--theme-shadow': 'rgba(126, 34, 206, 0.3)',
+                    '--theme-text-light': '#e9d5ff',
+                    '--theme-glow-1': 'rgba(168, 85, 247, 0.9)',
+                    '--theme-glow-2': 'rgba(126, 34, 206, 0.7)',
+                    '--theme-glow-3': 'rgba(88, 28, 135, 0.5)'
+                }
+            },
+            {
+                id: 'ruby',
+                name: 'Yoqut Harorat Aurası',
+                dotColor: '#f43f5e',
+                colors: ['rgba(244, 63, 94, ', 'rgba(251, 113, 133, ', 'rgba(225, 29, 72, ', 'rgba(254, 205, 211, '],
+                audioNotes: [349.23, 440.00, 523.25, 698.46, 880.00],
+                cssVars: {
+                    '--theme-border': 'rgba(251, 113, 133, 0.35)',
+                    '--theme-shadow': 'rgba(225, 29, 72, 0.3)',
+                    '--theme-text-light': '#fecdd3',
+                    '--theme-glow-1': 'rgba(244, 63, 94, 0.9)',
+                    '--theme-glow-2': 'rgba(225, 29, 72, 0.7)',
+                    '--theme-glow-3': 'rgba(159, 18, 57, 0.5)'
+                }
+            }
+        ];
+
+        const PRESET_NAMES = {
+            "AZIZA": {
+                epithet: "Nafosat va Oliyjanoblik Egasiga",
+                subtitle: "Sizdagi yuksak odob, samimiy nigoh va muloyimlik har bir qalbga tinchlik ulashadi.",
+                auraIndex: 0,
+                traits: [
+                    { icon: 'fa-gem', title: 'Nazokatli Qalb', text: 'Sizning har bir so\'zingiz va muomalangizda atrofingizdagilarga bo\'lgan samimiy hurmat sezilib turadi.' },
+                    { icon: 'fa-brain', title: 'Teran Zakovat', text: 'Hayotga bo\'lgan tushunchangiz, donoligini ko\'rsatuvchi ziyolilikingiz baland hurmatga loyiq.' },
+                    { icon: 'fa-sun', title: 'Nurli Hujur', text: 'Siz bor joyda samimiy kayfiyat va iliqlik paydo bo\'ladi. Siz insonlarga xotirjamlik berasiz.' }
+                ],
+                compliments: [
+                    "Sizdagi beg'uborlik va yuksak odob — bu zamonda kamdan-kam uchraydigan haqiqiy boylikdir.",
+                    "Siz shunday insonsizki, hatto oddiy muloqot ham atrofga samimiy energiya ulashadi.",
+                    "Har bir qaroringizda donolik va o'zingizga bo'lgan yuksak ishonch aks etib turadi.",
+                    "Sizning borligingiz — bu atrofingizdagilar uchun haqiqiy ma'naviy tuhfadir."
+                ]
+            },
+            "MADINA": {
+                epithet: "Nuroniy va Beg'ubor Qalb Sohibasiga",
+                subtitle: "Sizdagi samimiy tabassum va pokiza niyat olamni yanada chiroyli qiladi.",
+                auraIndex: 1,
+                traits: [
+                    { icon: 'fa-feather', title: 'Beg\'ubor Qalb', text: 'G\'uborsiz va samimiy qalbingiz insonlarni o\'ziga jalb qiladi va iliqlik bag\'ishlaydi.' },
+                    { icon: 'fa-compass', title: 'To\'g\'ri E\'tiqod', text: 'Tamoyillaringiz va insoniylik mezonlaringiz atrofingizdagilar uchun go\'zal o\'rnakdir.' },
+                    { icon: 'fa-sparkles', title: 'Sehrli Energiya', text: 'Aura va kayfiyatingiz har qanday tushkunlikni tarqatishga qodir yorqin quvvatga ega.' }
+                ],
+                compliments: [
+                    "Sizdagi xokisorlik va odob-ahloq atrofingizdagilarning sizga bo'lgan chuqur hurmatini oshiradi.",
+                    "Donishmand nigohlaringiz va teran fikrlaringiz bilan har qanday suhbatni mazmunli qilasiz.",
+                    "Insonlarga bo'lgan mexribonligingiz va e'tiboringiz sizning chinakam oliyjanobligingizni ko'rsatadi.",
+                    "Siz sababli atrofingizdagi olam yanada yorqinroq va go'zalroq aks etadi."
+                ]
+            },
+            "SEVINCH": {
+                epithet: "Quvonch va Samimiyat Manbaiga",
+                subtitle: "Siz bor joyda har doim tabassum, samimiyat va quvnoq kayfiyat hukumron!",
+                auraIndex: 4,
+                traits: [
+                    { icon: 'fa-smile-beam', title: 'Yorqin Kayfiyat', text: 'Tabassumingiz va quvnoqligingiz har qanday dilga quvonch kirita oladi.' },
+                    { icon: 'fa-heart', title: 'Iliq Qalb', text: 'Insonlarga bo\'lgan samimiy munosabatingiz sizni atrofingdagilar uchun sevimli qiladi.' },
+                    { icon: 'fa-star', title: 'O\'ziga xoslik', text: 'Har bir harakatingizda o\'zgacha go\'zallik va nazokat yaqqol ko\'rinib turadi.' }
+                ],
+                compliments: [
+                    "Sizning energetikangiz va tabassumingiz har qanday inson kayfiyatini ko'tarishga qodir.",
+                    "Sizdagi beg'ubor samimiyat va soflik haqiqiy maqtovga loyiqdir.",
+                    "Hayotga bo'lgan qiziqishingiz va intilishingiz atrofingizdagilarga katta ilhom bag'ishlaydi.",
+                    "Siz o'z borligingiz bilan atrofingizni go'zallashtiruvchi sehrli insonsiz."
+                ]
+            }
+        };
+
+        function getStringHash(str) {
+            let hash = 0;
+            const cleanStr = str.trim().toUpperCase();
+            for (let i = 0; i < cleanStr.length; i++) {
+                hash = cleanStr.charCodeAt(i) + ((hash << 5) - hash);
+            }
+            return Math.abs(hash);
+        }
+
+        const DYNAMIC_EPITHETS = [
+            "Nafosat va Zakovat Timsoli",
+            "Nurli va Beg'ubor Qalb Egasiga",
+            "Aql va Go'zallik Uyg'unligi Sohibasiga",
+            "Oliyjanoblik va Ziyo Manbaiga",
+            "Samimiyat va Nazokat Egasiga",
+            "Teran Fikr va Yuksak Odob Sohibasiga"
+        ];
+
+        const DYNAMIC_SUBTITLES = [
+            "Siz shunchaki inson emassiz — siz atrofingizga nur, xotirjamlik va yuksak nafosat ulashuvchi noyob bir mo'jizasiz.",
+            "Sizdagi samimiy nigoh, teran fikr va yuksak odob har qanday inson qalbidan chuqur joy oladi.",
+            "O'zingizga bo'lgan yuksak ishonchingiz, go'zal odobingiz va samimiyatingiz haqiqiy havasga loyiq.",
+            "Siz bor joyda har doim samimiyat, iliqlik va chiroyli kayfiyat hukmronlik qiladi.",
+            "Sizdagi beg'uborlik va o'zgacha nazokat atrofingizdagilarda har doim chuqur hurmat uyg'otadi."
+        ];
+
+        const DYNAMIC_TRAIT_POOLS = [
+            [
+                { icon: 'fa-gem', title: 'Yuksak Dida', text: 'O\'zingizni tutishingiz, uslubingiz va o\'zgacha nazokatingiz har doim hayrat va hurmat uyg\'otadi.' },
+                { icon: 'fa-brain', title: 'Teran Ziyo', text: 'Fikrlaringizning teranligi va dunyoqarashingiz atrofingizdagilar uchun ma\'naviy ilhom manbaidir.' },
+                { icon: 'fa-sun', title: 'Nurli Energiya', text: 'Siz bor joyda har doim samimiyat, iliqlik va ijobiy kayfiyat hukumron bo\'ladi.' }
+            ],
+            [
+                { icon: 'fa-heart-circle-check', title: 'Beg\'ubor Qalb', text: 'Atrofingizdagilarga bo\'lgan samimiy munosabatingiz va sofligingiz tengsiz maqtovga loyiq.' },
+                { icon: 'fa-star-of-life', title: 'Noyob Nazokat', text: 'Har bir so\'zingiz va harakatingizda o\'zingizga xos bo\'lgan oliyjanoblik sezilib turadi.' },
+                { icon: 'fa-lightbulb', title: 'Donishmand Nigoh', text: 'Vaziyatlarga bo\'lgan to\'g\'ri va teran yondashuvingiz sizdagi yuksak zakovatni ko\'rsatadi.' }
+            ],
+            [
+                { icon: 'fa-shield-halved', title: 'O\'ziga Ishonch', text: 'Sizdagi ichki matonat, mustahkam e\'tiqod va o\'zingizga bo\'lgan hurmat har kimni hayratda qoldiradi.' },
+                { icon: 'fa-wand-magic-sparkles', title: 'Sehrli Tabassum', text: 'Tabassumingiz har qanday dilga ziyo va xotirjamlik olib kirish kuchiga ega.' },
+                { icon: 'fa-crown', title: 'Asil Odob', text: 'Sizdagi kamtarinlik va yuksak madaniyat sizni chinakam oliyjanob inson sifatida namoyon etadi.' }
+            ]
+        ];
+
+        const DYNAMIC_COMPLIMENTS_POOL = [
+            "Sizdagi beg'uborlik va yuksak odob — bu zamonda kamdan-kam uchraydigan haqiqiy boylikdir.",
+            "Har bir so'zingizda teran fikr, har bir harakatingizda esa alohida nafosat va samimiyat sezilib turadi.",
+            "Siz shunday insonsizki, hatto oddiy muloqot ham atrofga iliqlik va ijobiy energiya ulashadi.",
+            "Tiyrak va donishmand nigohlaringiz, o'zingizga bo'lgan ishonchingiz har qanday insonni hayratda qoldiradi.",
+            "Siz bilan muloqotda bo'lish — bu inson qalbiga xotirjamlik va ma'naviy ozuqa bag'ishlaydi.",
+            "Sizning borligingizning o'zi atrofingizdagi insonlar uchun chiroyli bayramdir."
+        ];
+
+        function getProfileForName(inputName) {
+            const cleanName = inputName.trim().toUpperCase();
+
+            if (PRESET_NAMES[cleanName]) {
+                const preset = PRESET_NAMES[cleanName];
+                return {
+                    name: cleanName,
+                    epithet: preset.epithet,
+                    subtitle: preset.subtitle,
+                    theme: AURA_THEMES[preset.auraIndex % AURA_THEMES.length],
+                    traits: preset.traits,
+                    compliments: preset.compliments
+                };
+            }
+
+            const hash = getStringHash(cleanName);
+            const theme = AURA_THEMES[hash % AURA_THEMES.length];
+            const epithet = DYNAMIC_EPITHETS[hash % DYNAMIC_EPITHETS.length];
+            const subtitle = DYNAMIC_SUBTITLES[hash % DYNAMIC_SUBTITLES.length];
+            const traits = DYNAMIC_TRAIT_POOLS[hash % DYNAMIC_TRAIT_POOLS.length];
+
+            const compliments = [];
+            for (let i = 0; i < 4; i++) {
+                const compIndex = (hash + i * 3) % DYNAMIC_COMPLIMENTS_POOL.length;
+                compliments.push(DYNAMIC_COMPLIMENTS_POOL[compIndex]);
+            }
+
+            return {
+                name: cleanName,
+                epithet,
+                subtitle,
+                theme,
+                traits,
+                compliments
+            };
+        }
+
+        const canvas = document.getElementById('bgCanvas');
+        const ctx = canvas.getContext('2d');
+
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
+
+        window.addEventListener('resize', () => {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        });
+
+        const particles = [];
+        let currentThemeColors = AURA_THEMES[0].colors;
+
+        class Particle {
+            constructor(x, y, isBurst = false) {
+                this.x = x || Math.random() * width;
+                this.y = y || Math.random() * height;
+                this.size = isBurst ? Math.random() * 4.5 + 1.5 : Math.random() * 2.2 + 0.5;
+                this.vx = isBurst ? (Math.random() - 0.5) * 6 : (Math.random() - 0.5) * 0.4;
+                this.vy = isBurst ? (Math.random() - 0.5) * 6 : - (Math.random() * 0.8 + 0.2);
+                this.alpha = isBurst ? 1 : Math.random() * 0.7 + 0.25;
+                this.isBurst = isBurst;
+                this.colorBase = currentThemeColors[Math.floor(Math.random() * currentThemeColors.length)];
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+
+                if (this.isBurst) {
+                    this.alpha -= 0.018;
+                    this.size *= 0.98;
+                } else {
+                    if (this.y < -10) {
+                        this.y = height + 10;
+                        this.x = Math.random() * width;
+                    }
+                }
+            }
+
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = Math.max(0, this.alpha);
+                ctx.fillStyle = this.colorBase + this.alpha + ')';
+                ctx.shadowBlur = this.size * 3;
+                ctx.shadowColor = this.colorBase + '1)';
+
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+
+        for (let i = 0; i < 85; i++) {
+            particles.push(new Particle());
+        }
+
+        function createBurst(x, y) {
+            audioPlayer.playSparkleSound();
+            for (let i = 0; i < 35; i++) {
+                particles.push(new Particle(x, y, true));
+            }
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, width, height);
+
+            for (let i = particles.length - 1; i >= 0; i--) {
+                const p = particles[i];
+                p.update();
+                p.draw();
+
+                if (p.isBurst && p.alpha <= 0) {
+                    particles.splice(i, 1);
+                }
+            }
+
+            requestAnimationFrame(animateParticles);
+        }
+
+        animateParticles();
+
+        window.addEventListener('click', (e) => {
+            if (e.target.tagName !== 'BUTTON' && e.target.tagName !== 'INPUT') {
+                createBurst(e.clientX, e.clientY);
+            }
+        });
+
+        window.addEventListener('mousemove', (e) => {
+            if (Math.random() < 0.12) {
+                particles.push(new Particle(e.clientX, e.clientY, true));
+            }
+        });
+
+        function applyTheme(theme) {
+            currentThemeColors = theme.colors;
+            audioPlayer.setToneScale(theme.audioNotes);
+
+            const root = document.documentElement;
+            Object.keys(theme.cssVars).forEach(key => {
+                root.style.setProperty(key, theme.cssVars[key]);
+            });
+
+            document.getElementById('auraName').textContent = theme.name;
+            document.getElementById('auraDot').style.backgroundColor = theme.dotColor;
+            document.getElementById('auraDot').style.boxShadow = `0 0 10px ${theme.dotColor}`;
+        }
+
+        const modalNameEntry = document.getElementById('modalNameEntry');
+        const mainScreen = document.getElementById('mainScreen');
+        const displayName = document.getElementById('displayName');
+        const displayEpithet = document.getElementById('displayEpithet');
+        const displaySubtitle = document.getElementById('displaySubtitle');
+        const traitsGrid = document.getElementById('traitsGrid');
+
+        let activeCompliments = [];
+        let currentPoemIndex = 0;
+
+        function handleNameSubmit(event) {
+            event.preventDefault();
+            const rawName = document.getElementById('inputName').value;
+
+            if (!rawName.trim()) return;
+
+            const profile = getProfileForName(rawName);
+
+            applyTheme(profile.theme);
+
+            displayName.textContent = profile.name;
+            displayEpithet.textContent = profile.epithet;
+            displaySubtitle.textContent = `"${profile.subtitle}"`;
+
+            traitsGrid.innerHTML = '';
+            profile.traits.forEach(trait => {
+                const card = document.createElement('div');
+                card.className = "glass-luxury rounded-2xl p-6 text-left border border-white/10 hover:border-amber-400/50 transition-all duration-300 transform hover:-translate-y-1";
+                card.innerHTML = `
+                    <div class="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center text-xl mb-4 border border-amber-500/30">
+                        <i class="fas ${trait.icon}"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-amber-200 font-cinzel mb-2">${trait.title}</h3>
+                    <p class="text-gray-300 text-sm leading-relaxed font-light">${trait.text}</p>
+                `;
+                traitsGrid.appendChild(card);
+            });
+
+            activeCompliments = profile.compliments;
+
+            modalNameEntry.classList.add('opacity-0', 'pointer-events-none');
+            setTimeout(() => {
+                modalNameEntry.classList.add('hidden');
+                mainScreen.classList.remove('hidden');
+                setTimeout(() => {
+                    mainScreen.classList.remove('opacity-0');
+                    createBurst(window.innerWidth / 2, window.innerHeight / 3);
+                }, 50);
+            }, 600);
+
+            if (!isMusicOn) {
+                document.getElementById('musicToggle').click();
+            }
+        }
+
+        document.getElementById('btnReenterName').addEventListener('click', () => {
+            mainScreen.classList.add('opacity-0');
+            setTimeout(() => {
+                mainScreen.classList.add('hidden');
+                modalNameEntry.classList.remove('hidden');
+                setTimeout(() => {
+                    modalNameEntry.classList.remove('opacity-0', 'pointer-events-none');
+                    document.getElementById('inputName').focus();
+                }, 50);
+            }, 500);
+        });
+
+        const modalPoem = document.getElementById('modalPoem');
+        const poemText = document.getElementById('poemText');
+        const poemCounter = document.getElementById('poemCounter');
+
+        document.getElementById('btnOpenPoem').addEventListener('click', () => {
+            currentPoemIndex = 0;
+            updatePoemDisplay();
+            modalPoem.classList.remove('hidden');
+            setTimeout(() => {
+                modalPoem.classList.remove('opacity-0');
+            }, 50);
+        });
+
+        document.getElementById('btnClosePoem').addEventListener('click', () => {
+            modalPoem.classList.add('opacity-0');
+            setTimeout(() => {
+                modalPoem.classList.add('hidden');
+            }, 500);
+        });
+
+        function updatePoemDisplay() {
+            poemText.style.opacity = '0';
+            setTimeout(() => {
+                poemText.textContent = `"${activeCompliments[currentPoemIndex] || activeCompliments[0]}"`;
+                poemCounter.textContent = `${currentPoemIndex + 1} / ${activeCompliments.length}`;
+                poemText.style.opacity = '1';
+            }, 200);
+        }
+
+        document.getElementById('btnNextPoem').addEventListener('click', () => {
+            if (activeCompliments.length === 0) return;
+            currentPoemIndex = (currentPoemIndex + 1) % activeCompliments.length;
+            updatePoemDisplay();
+        });
+
+        document.getElementById('btnPrevPoem').addEventListener('click', () => {
+            if (activeCompliments.length === 0) return;
+            currentPoemIndex = (currentPoemIndex - 1 + activeCompliments.length) % activeCompliments.length;
+            updatePoemDisplay();
+        });
+    </script>
+</body>
+</html>
